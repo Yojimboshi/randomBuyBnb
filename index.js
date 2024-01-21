@@ -1,57 +1,84 @@
+// index.js
+// Imports and Configurations
 require('dotenv').config();
 const axios = require('axios');
 const crypto = require('crypto');
-const { conservativeCoins, midRiskCoins, highRiskCoins } = require('./coinConfig');
-
+const fs = require('fs');
+const { coinListA, coinListB, coinListC, coinListD ,coinListE,coinListF} = require('./coinConfig');
 const API_KEY = process.env.API;
 const SECRET_KEY = process.env.SECRET;
-
 const binanceBaseUrl = 'https://api.binance.com';
+const logFilePath = './log/orders.log';
 
-// Function to create a query string with a signature
-function getSignedQuery(data) {
-  const queryString = Object.keys(data).map(key => `${key}=${data[key]}`).join('&');
-  return `${queryString}&signature=${crypto.createHmac('sha256', SECRET_KEY).update(queryString).digest('hex')}`;
+// Utility Functions
+function logToFile(message) {
+  const timestamp = new Date().toISOString();
+  const logMessage = `${timestamp} - ${message}\n`;
+  fs.appendFileSync(logFilePath, logMessage, 'utf8');
 }
 
-// Function to make a buy order
-async function makeBuyOrder(symbol, quantity) {
-  const data = {
-    symbol,
-    side: 'BUY',
-    type: 'MARKET',
-    quantity,
-    timestamp: Date.now()
-  };
-  const signedQuery = getSignedQuery(data);
+function roundUpToNearestTen(num) {
+  return Math.ceil(num / 10) * 10;
+}
 
+// Binance API Interaction Functions
+async function makeBuyOrder(symbol, usdtAmount) {
+  const timestamp = Date.now();
+  const data = { symbol, side: 'BUY', type: 'MARKET', quoteOrderQty: usdtAmount.toString(), timestamp };
+  const queryString = Object.keys(data).map(key => `${key}=${encodeURIComponent(data[key])}`).join('&');
+  const signature = crypto.createHmac('sha256', SECRET_KEY).update(queryString).digest('hex');
+  const signedQueryString = `${queryString}&signature=${signature}`;
+
+  console.log('Sending order with data:', data);
   try {
-    const response = await axios.post(`${binanceBaseUrl}/api/v3/order?${signedQuery}`, {}, {
-      headers: { 'X-MBX-APIKEY': API_KEY }
+    const response = await axios.post(`${binanceBaseUrl}/api/v3/order?${signedQueryString}`, {}, {
+      headers: { 'X-MBX-APIKEY': API_KEY, 'Content-Type': 'application/x-www-form-urlencoded' }
     });
     console.log('Order successful:', response.data);
+    logSuccessDetails(response.data); // Handle success logging in a separate function
   } catch (error) {
-    console.error('Order failed:', error.response.data);
+    console.error('Order failed:', error.response && error.response.data ? error.response.data : error.message);
+    logToFile(`Order failed: Attempted to buy with ${usdtAmount} USDT on ${symbol} - ${error.message}`);
   }
 }
 
-// Main function to distribute and execute buy orders
+function logSuccessDetails(data) {
+  const { symbol, executedQty, cummulativeQuoteQty, fills } = data;
+  const avgPrice = fills.reduce((acc, fill) => acc + (parseFloat(fill.price) * parseFloat(fill.qty)), 0) / parseFloat(executedQty);
+  const successLog = {
+    symbol,
+    avgPrice: avgPrice.toFixed(8),
+    filledAmount: parseFloat(executedQty).toFixed(8),
+    totalUsdt: parseFloat(cummulativeQuoteQty).toFixed(8)
+  };
+  logToFile(`Order successful details: ${JSON.stringify(successLog, null, 2)}`);
+}
+
+// Main Execution Function
 async function executeBuyOrders(totalAmount) {
-  // Randomly select a coin list
-  const coinLists = [conservativeCoins, midRiskCoins, highRiskCoins];
-  const selectedCoins = coinLists[Math.floor(Math.random() * coinLists.length)];
+  const combinedCoins = [...coinListC, ...coinListD, ...coinListE];
+  let remainingAmount = totalAmount;
+  let allocations = [];
 
-  // Assuming equal distribution for simplicity, calculate amount per coin
-  const amountPerCoin = totalAmount / selectedCoins.length;
+  while (combinedCoins.length > 0 && remainingAmount >= 10) {
+    const coinIndex = Math.floor(Math.random() * combinedCoins.length);
+    const coin = combinedCoins[coinIndex];
+    let amountForCoin = roundUpToNearestTen(Math.random() * remainingAmount);
 
-  console.log(`Buying ${amountPerCoin} worth of each coin: ${selectedCoins.join(', ')}`);
+    if (amountForCoin > remainingAmount || combinedCoins.length === 1) {
+      amountForCoin = remainingAmount;
+    }
 
-  // Execute buy orders for each selected coin
-  for (let coin of selectedCoins) {
-    // Placeholder for actual quantity calculation, assuming '1' for demonstration
-    await makeBuyOrder(coin + 'USDT', 1); // Assuming USDT pair for all coins
+    allocations.push({ coin, amountForCoin });
+    remainingAmount -= amountForCoin;
+    combinedCoins.splice(coinIndex, 1);
+  }
+
+  allocations.forEach(a => logToFile(`Allocated ${a.amountForCoin} USDT to ${a.coin}`));
+  for (let { coin, amountForCoin } of allocations) {
+    await makeBuyOrder(coin + 'USDT', amountForCoin);
   }
 }
 
 // Example usage
-executeBuyOrders(1000).then(() => console.log('All orders executed.'));
+executeBuyOrders(100).then(() => console.log('All orders executed.'));
