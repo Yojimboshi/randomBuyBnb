@@ -4,7 +4,7 @@ require('dotenv').config({ path: '../.env' });
 const axios = require('axios');
 const crypto = require('crypto');
 const fs = require('fs');
-const { coinListA, coinListB, coinListC, coinListD, coinListE, coinListF } = require('./utils/coinConfig');
+const { tierA, tierB, tierC, memeList } = require('./utils/myCoinList');
 const API_KEY = process.env.API;
 const SECRET_KEY = process.env.SECRET;
 const binanceBaseUrl = 'https://api.binance.com';
@@ -135,8 +135,22 @@ async function executeLimitBuyOrdersWithList(coinList, usdtAmount, discountPerce
 }
 
 async function main() {
-    const myList = ['BTC', 'ETH']; // Example coin list
-    await executeLimitBuyOrdersWithList(myList, 100, 10).then(() => console.log('Limit orders executed.'));
+    // Execute limit buy orders for Tier A coins
+    await executeLimitBuyOrdersWithList(tierA, 500, 6)
+        .then(() => console.log('Tier A limit orders executed.'))
+        .catch((error) => console.error('Error executing Tier A orders:', error));
+
+    await executeLimitBuyOrdersWithList(tierB, 300, 10)
+        .then(() => console.log('Tier B limit orders executed.'))
+        .catch((error) => console.error('Error executing Tier B orders:', error));
+
+    // await executeLimitBuyOrdersWithList(tierC, 250, 10)
+    //     .then(() => console.log('Tier C limit orders executed.'))
+    //     .catch((error) => console.error('Error executing Tier C orders:', error));
+
+    // await executeLimitBuyOrdersWithList(memeList, 100, 15)
+    //     .then(() => console.log('Meme list limit orders executed.'))
+    //     .catch((error) => console.error('Error executing Meme list orders:', error));
 }
 
 main();

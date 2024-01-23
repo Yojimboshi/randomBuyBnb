@@ -9,12 +9,16 @@ module.exports = {
 
     // 20 to 50
     tierB: [
-        'XRP', 'ADA', 'DOGE', 'AVAX', 'TRX', 'LTC', 'AVAX', 'MATIC',
-        'SHIB', 'CAKE', 'ARB', 'APE', 'XRP', 'ADA', 'XLM',
-        'DOGE', 'RAY', 'UNI', 'PYTH'
+        'ADA', 'DOGE', 'AVAX', 'MATIC',
+        'CAKE', 'ARB', 'XLM', 'RAY', 'UNI',
     ],
 
-    memeList: ['PEPE','BONK','METIS','FLOKI',]
+    tierC: [
+        'XRP', 'SHIB', 'TRX', 'LTC', 'APE', 'PYTH', 'NEAR', 'SEI', 'BCH', 'XAI'
+    ],
 
+    memeList: [
+        'PEPE', 'BONK', 'METIS', 'FLOKI', 'MEME', 'ORDI', 'MANTA', 'NFP'
+    ]
 
 };
