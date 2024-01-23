@@ -107,7 +107,7 @@ async function makeSellOrder(symbol, quoteOrderQty) {
 async function executeSellOrdersWithList(coinLists, totalSellValue) {
     const sellableAssets = await fetchSpotWalletBalancesAndValues(coinLists);
 
-    console.log("sellableAssets",sellableAssets)
+    console.log("sellableAssets", sellableAssets)
 
     let remainingSellValue = totalSellValue;
     const sellOrders = [];
@@ -116,18 +116,26 @@ async function executeSellOrdersWithList(coinLists, totalSellValue) {
         const assetIndex = Math.floor(Math.random() * sellableAssets.length);
         const asset = sellableAssets[assetIndex];
 
-        // Determine the random sell value for this asset
-        const maxSellValueForAsset = Math.min(asset.usdValue, remainingSellValue);
-        const sellValue = Math.max(10, Math.random() * maxSellValueForAsset).toFixed(2);
-        
+        let sellValue;
+
+        // If asset's usdValue is less than $10, sell it all
+        if (asset.usdValue < 10) {
+            sellValue = asset.usdValue; // Sell the entire asset
+        }
+        else {
+            const maxSellValueForAsset = Math.min(asset.usdValue, remainingSellValue);
+            sellValue = Math.max(10, Math.random() * maxSellValueForAsset).toFixed(2);
+        }
 
         sellOrders.push({
             symbol: `${asset.asset}USDT`,
-            quoteOrderQty: sellValue.toFixed(2)
+            quoteOrderQty: sellValue
         });
 
         remainingSellValue -= sellValue;
         sellableAssets.splice(assetIndex, 1);
+
+        console.log(`Remaining Sell Value after selling ${asset.asset}: $${remainingSellValue.toFixed(2)}`);
     }
 
     // Execute sell orders
@@ -139,6 +147,8 @@ async function executeSellOrdersWithList(coinLists, totalSellValue) {
 
 async function main() {
     // Example call, adjust as needed
+    await executeSellOrdersWithList([coinListA, coinListB], 50).then(() => console.log('Sell orders for lists A and B executed.'));
+    await executeSellOrdersWithList([coinListC, coinListD], 50).then(() => console.log('Sell orders for lists C and D executed.'));
     await executeSellOrdersWithList([coinListE, coinListF], 50).then(() => console.log('Sell orders for lists E and F executed.'));
 }
 
