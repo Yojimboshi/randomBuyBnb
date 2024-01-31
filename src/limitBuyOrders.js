@@ -82,14 +82,14 @@ async function makeLimitBuyOrder(symbol, usdtAmount, limitPrice) {
     const adjustedQuantity = adjustQuantityToLotSize(quantity, lotSize);
 
     const timestamp = Date.now();
-    const data = { 
-        symbol, 
-        side: 'BUY', 
-        type: 'LIMIT', 
-        quantity: adjustedQuantity, 
-        price: adjustedLimitPrice, 
-        timeInForce: 'GTC', 
-        timestamp 
+    const data = {
+        symbol,
+        side: 'BUY',
+        type: 'LIMIT',
+        quantity: adjustedQuantity,
+        price: adjustedLimitPrice,
+        timeInForce: 'GTC',
+        timestamp
     };
 
     const queryString = Object.keys(data).map(key => `${key}=${encodeURIComponent(data[key])}`).join('&');
@@ -110,13 +110,18 @@ async function makeLimitBuyOrder(symbol, usdtAmount, limitPrice) {
 }
 
 function logSuccessDetails(data) {
-    const { symbol, executedQty, cummulativeQuoteQty, fills } = data;
-    const avgPrice = fills.reduce((acc, fill) => acc + (parseFloat(fill.price) * parseFloat(fill.qty)), 0) / parseFloat(executedQty);
+    const { symbol, orderId, transactTime, price, origQty, status,
+        timeInForce, type, side } = data;
     const successLog = {
         symbol,
-        avgPrice: avgPrice.toFixed(8),
-        filledAmount: parseFloat(executedQty).toFixed(8),
-        totalUsdt: parseFloat(cummulativeQuoteQty).toFixed(8)
+        orderId,
+        transactTime: new Date(transactTime).toISOString(), // Convert timestamp to ISO format
+        price: parseFloat(price).toFixed(8),
+        origQty: parseFloat(origQty).toFixed(8),
+        status,
+        timeInForce,
+        type,
+        side
     };
     logToFile(`Order successful details: ${JSON.stringify(successLog, null, 2)}`);
 }
@@ -140,17 +145,17 @@ async function main() {
         .then(() => console.log('Tier A limit orders executed.'))
         .catch((error) => console.error('Error executing Tier A orders:', error));
 
-    await executeLimitBuyOrdersWithList(tierB, 300, 10)
+    await executeLimitBuyOrdersWithList(tierB, 300, 8.5)
         .then(() => console.log('Tier B limit orders executed.'))
         .catch((error) => console.error('Error executing Tier B orders:', error));
 
-    // await executeLimitBuyOrdersWithList(tierC, 250, 10)
-    //     .then(() => console.log('Tier C limit orders executed.'))
-    //     .catch((error) => console.error('Error executing Tier C orders:', error));
+    await executeLimitBuyOrdersWithList(tierC, 250, 12)
+        .then(() => console.log('Tier C limit orders executed.'))
+        .catch((error) => console.error('Error executing Tier C orders:', error));
 
-    // await executeLimitBuyOrdersWithList(memeList, 100, 15)
-    //     .then(() => console.log('Meme list limit orders executed.'))
-    //     .catch((error) => console.error('Error executing Meme list orders:', error));
+    await executeLimitBuyOrdersWithList(memeList, 100, 15)
+        .then(() => console.log('Meme list limit orders executed.'))
+        .catch((error) => console.error('Error executing Meme list orders:', error));
 }
 
 main();
