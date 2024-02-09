@@ -27,7 +27,7 @@ module.exports = {
   // 100 to 200
   coinListD: [
     'CRV', 'ENS', 'GNO', 'PENDLE', 'APE', 'FET', 'GMT', 'NEXO', 'PEPE', 'TWT', '1INCH', 'COMP',
-    'XEM', 'GMX', 'ELF', 'GAS', 'UMA', 'LUNA', 'IOTX', 'ENJ', 'ZEC', 'SKL', 'ZIL',
+    'XEM', 'GMX', 'ELF', 'GAS', 'UMA', 'IOTX', 'ENJ', 'ZEC', 'SKL', 'ZIL',
     'CELO', 'LRC', 'AGIX', 'HOT', 'MASK', 'BAT', 'DASH', 'KSM', 'SSV', 'QTUM', 'TRB', 'NTRN',
     'GLMR', 'ILV', 'SFP', 'SUPER', 'RAY', 'FLOKI', 'KDA', 'WLD', 'TFUEL', 'CVX', 'T', 'MAGIC',
     'ANT', 'ZRX', 'WAVES', 'JST', 'SUSHI', 'OCEAN', 'JASMY', 'RVN', 'JTO', 'YFI', 'BICO', 'ANKR',
@@ -36,23 +36,46 @@ module.exports = {
   ],
   // 200 to 400
   coinListE: [
-    'SXP', 'API3', 'XVS', 'CTSI', 'ACE', 'GAL', 'JOE', 'POWR', 'HIVE', 'PEOPLE', 'PYR', 'IOST',
-    'AMP', 'C98', 'SNT', 'XNO', 'VTHO', 'RLC', 'EDU', 'YGG', 'AUCTION', 'BLZ', 'GNS', 'AI',
-    'CKB', 'STRAX', 'ARK', 'LSK', 'RDNT', 'DGB', 'NFP', 'MAV', 'RIF', 'ACH', 'POLYX', 'ID',
-    'CELR', 'SLP', 'DEXE', 'POND', 'RSR', 'LQTY', 'ZEN', 'HFT', 'ONG', 'PLA', 'PUNDIX', 'LOOM',
-    'STG', 'NMR', 'HOOK', 'SCRT', 'DODO', 'DENT', 'STEEM', 'RAD', 'STPT', 'BNX', 'KNC', 'OM',
-    'BNT', 'PROM', 'MTL', 'OGN', 'CVC', 'IQ', 'SYS', 'OXT', 'BAKE', 'CTXC', 'SYN', 'WIN',
-    'AGLD', 'ARDR', 'CTK', 'NKN', 'REQ', 'WRX', 'ALPHA', 'CYBER', 'DUSK', 'GTC', 'HIGH', 'ARPA'
+    'GAL', 'JTO', 'ICX', 'GLM', 'ONT', 'BAL',
+    'ONE', 'FLUX', 'MOVR', 'POND', 'SXP', 'WAXP',
+    'ACE', 'EDU', 'OM', 'IOST', 'VTHO', 'LSK',
+    'JOE', 'AUCTION', 'XVS', 'MAV', 'C98', 'RLC',
+    'GNS', 'NMR', 'POWR', 'PYR', 'HIVE', 'ARK',
+    'SNT', 'XNO', 'AMP', 'AI', 'GMT', 'STRAX',
+    'RIF', 'PEOPLE', 'CELR', 'NFP', 'YGG', 'ACH',
+    'RDNT', 'SYN', 'DGB', 'DUSK', 'BLZ', 'LQTY',
+    'POLYX', 'CTXC', 'PROM', 'CYBER', 'ZEN', 'RSR',
+    'SLP', 'COTI', 'STG', 'KNC', 'DEXE', 'PUNDIX',
+    'LOOM', 'PLA', 'OXT', 'STPT', 'DENT', 'SCRT',
+    'STEEM', 'BAKE', 'BNT', 'ACA', 'AGLD', 'RAD',
+    'MTL', 'DODO', 'BNX', 'WIN', 'CVC', 'OGN',
+    'OMG', 'SYS', 'ARKM', 'IQ', 'CTK', 'ARDR',
+    'REQ', 'NKN'
   ],
   // 400 to 600
   coinListF: [
-    'POLS', 'MBOX', 'VANRY', 'ARKM', 'PERP', 'ACA', 'ALICE', 'MBL', 'AEUR', 'COTI',
-    'SUN', 'PHA', 'STMX', 'MOB', 'QKC', 'VIC', 'HIFI', 'QI', 'RARE', 'WNXM',
-    'FUN', 'BADGER', 'AERGO', 'MEME', 'SPELL', 'REN', 'TLM', 'XVG', 'COMBO', 'BETA',
-    'TKO', 'DATA', 'TRU', 'ALCX', 'GHST', 'FORTH', 'LINA', 'DAR', 'FRONT', 'DEGO',
-    'DIA', 'FLM', 'MLN', 'ERN', 'WAN', 'MDX', 'IRIS', 'COS', 'ATA', 'PHB',
-    'LOKA', 'BSW', 'LEVER', 'CLV', 'BEL', 'UNFI'
-  ]
+    'GTC', 'ALPHA', 'ALICE', 'MBOX', 'WRX',
+    'POLS', 'SUN', 'PERP', 'MBL', 'HIGH',
+    'AEUR', 'VANRY', 'QKC', 'ARPA', 'PHA',
+    'STMX', 'VIC', 'RARE', 'QI', 'HIFI',
+    'WNXM', 'BADGER', 'FUN', 'TKO', 'MOB',
+    'MEME', 'REN', 'AERGO', 'TRU', 'XVG',
+    'SPELL', 'BETA', 'DATA', 'TLM', 'GHST',
+    'ALCX', 'COMBO', 'FORTH', 'LINA', 'PHB',
+    'DIA', 'MDX', 'DAR', 'DEGO', 'FLM',
+    'ALT', 'ERN', 'WAN', 'BSW', 'MLN',
+    'IRIS', 'LEVER', 'IDEX', 'ATA', 'UTK',
+    'CLV', 'FRONT', 'BEL', 'ALT', 'UNFI'
+  ],
 
+  stablecoins: [
+    'USDT', 'USDC', 'BUSD', 'DAI', 'TUSD', 'PAX',
+    'USTC', 'SUSD', 'EURC', 'vBUSD', 'VAI', 'EURt'
+  ],
+
+  wrappedTokens: [
+    'WBTC', 'WETH', 'stETH', 'BTCB', 'WBNB', 'WTRX', 'WHBAR',
+    'WEOS', 'WBETH', 'RETH', 'HBTC', 'vBNB', 'cbETH', 'WKAVA',
+    'vBTC', 'vUSDC', 'vETH', 'ankrETH', 'renBTC']
 
 };
