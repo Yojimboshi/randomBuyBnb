@@ -82,8 +82,8 @@ async function executeBuyOrdersWithList(coinLists, totalAmount) {
 
 async function main() {
   // await executeBuyOrdersWithList([coinListA, coinListB], 250).then(() => console.log('Orders for A and B executed.'));
-  await executeBuyOrdersWithList([coinListC, coinListD], 100).then(() => console.log('Orders for C and D executed.'));
-  await executeBuyOrdersWithList([coinListE, coinListF], 100).then(() => console.log('Orders for E and F executed.'));
+  await executeBuyOrdersWithList([coinListC, coinListD], 150).then(() => console.log('Orders for C and D executed.'));
+  await executeBuyOrdersWithList([coinListE, coinListF], 150).then(() => console.log('Orders for E and F executed.'));
 
 }
 

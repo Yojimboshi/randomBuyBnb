@@ -4,35 +4,45 @@
 module.exports = {
   // 1 to 20
   coinListA: [
-    'BTC', 'ETH', 'BNB', 'SOL', 'XRP', 'ADA',
-    'DOGE', 'AVAX', 'TRX', 'LINK', 'DOT', 'MATIC',
-    'SHIB', 'LTC', 'ICP', 'BCH', 'UNI'
+    'BTC', 'ETH', 'SOL', 'BNB', 'XRP', 'ADA',
+    'AVAX', 'DOGE', 'LINK', 'TRX', 'DOT', 'MATIC',
+    'ICP', 'SHIB', 'BCH', 'LTC'
   ],
 
   // 20 to 50
   coinListB: [
-    'ATOM', 'ETC', 'XLM', 'INJ', 'OP', 'XMR', 'NEAR', 'APT',
-    'FIL', 'TIA', 'LDO', 'HBAR', 'IMX', 'ARB', 'STX',
-    'VET', 'MKR', 'SEI', 'GRT', 'RNDR', 'RUNE', 'AAVE',
+    'IMX', 'UNI', 'ATOM', 'ETC', 'STX', 'OP', 'NEAR', 'APT',
+    'INJ', 'XLM', 'TIA', 'LDO', 'FIL', 'HBAR', 'ARB',
+    'VET', 'XMR', 'SUI', 'SEI', 'MKR', 'RNDR', 'RUNE', 'GRT',
     'EGLD'
   ],
   // 50 to 100
   coinListC: [
-    'QNT', 'ALGO', 'ORDI', 'FLOW', 'SUI', 'MINA', '1000SATS', 'AXS',
-    'ASTR', 'SNX', 'SAND', 'FTM', 'XTZ', 'THETA', 'MANA', 'DYDX',
-    'CHZ', 'FTT', 'NEO', 'EOS', 'KAVA', 'OSMO', 'BLUR', 'SC',
-    'FXS', 'WOO', 'BONK', 'IOTA', 'CAKE', 'KLAY', 'ROSE', 'CFX',
-    'GALA', 'XEC', 'MANTA', 'LUNC', 'RPL', 'AR'
+    'MINA', 'ORDI', 'ALGO', 'FLOW',
+    'AAVE', 'QNT', 'BLUR', 'DYM',
+    'FTM', 'SNX', 'THETA', 'AXS',
+    'SAND', 'XTZ', '1000SATS', 'ASTR',
+    'PYTH', 'CHZ', 'MANA', 'BONK',
+    'NEO', 'CFX', 'ROSE', 'IOTA',
+    'EOS', 'KLAY', 'OSMO', 'KAVA',
+    'PENDLE', 'MANTA', 'WOO', 'GNO',
+    'ENS', 'GALA', 'JUP', 'LUNC'
   ],
   // 100 to 200
   coinListD: [
-    'CRV', 'ENS', 'GNO', 'PENDLE', 'APE', 'FET', 'GMT', 'NEXO', 'PEPE', 'TWT', '1INCH', 'COMP',
-    'XEM', 'GMX', 'ELF', 'GAS', 'UMA', 'IOTX', 'ENJ', 'ZEC', 'SKL', 'ZIL',
-    'CELO', 'LRC', 'AGIX', 'HOT', 'MASK', 'BAT', 'DASH', 'KSM', 'SSV', 'QTUM', 'TRB', 'NTRN',
-    'GLMR', 'ILV', 'SFP', 'SUPER', 'RAY', 'FLOKI', 'KDA', 'WLD', 'TFUEL', 'CVX', 'T', 'MAGIC',
-    'ANT', 'ZRX', 'WAVES', 'JST', 'SUSHI', 'OCEAN', 'JASMY', 'RVN', 'JTO', 'YFI', 'BICO', 'ANKR',
-    'DCR', 'AUDIO', 'USTC', 'LPT', 'BAND', 'STORJ', 'GLM', 'ICX', 'MEME', 'XAI', 'BAL', 'ONE',
-    'ONT', 'MOVR', 'FLUX', 'WAXP', 'CHR'
+    'FXS', 'XEC', 'AR', 'RPL', 'CAKE', 'FTT',
+    'SC', 'CRV', 'NEXO', 'APE', 'FET', 'SUPER',
+    '1INCH', 'PEPE', 'TWT', 'CKB', 'GMT', 'COMP',
+    'LUNA', 'ALT', 'ENJ', 'SKL', 'NTRN', 'IOTX',
+    'ELF', 'GMX', 'WLD', 'GAS', 'PAXG', 'CELO',
+    'API3', 'AGIX', 'ILV', 'KSM', 'ZIL', 'HOT',
+    'UMA', 'BAT', 'MASK', 'MAGIC', 'GLMR', 'SFP',
+    'ZEC', 'LRC', 'XEM', 'CVX', 'DASH', 'SSV',
+    'QTUM', 'FLOKI', 'TRB', 'JASMY', 'ANT', 'XAI',
+    'KDA', 'JST', 'OCEAN', 'RAY', 'ZRX', 'SUSHI',
+    'BAND', 'TFUEL', 'CHR', 'ID', 'RVN', 'MEME',
+    'T', 'STORJ', 'ANKR', 'GAL', 'BICO', 'VTHO',
+    'DCR', 'JTO', 'YFI', 'WAVES'
   ],
   // 200 to 400
   coinListE: [
@@ -69,8 +79,8 @@ module.exports = {
   ],
 
   stablecoins: [
-    'USDT', 'USDC', 'BUSD', 'DAI', 'TUSD', 'PAX',
-    'USTC', 'SUSD', 'EURC', 'vBUSD', 'VAI', 'EURt'
+    'USDT', 'USDC', 'BUSD', 'DAI', 'TUSD', 'PAX', 'USDP',
+    'USTC', 'SUSD', 'EURC', 'vBUSD', 'VAI', 'EURt', 'FDUSD'
   ],
 
   wrappedTokens: [
