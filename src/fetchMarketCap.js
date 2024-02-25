@@ -7,7 +7,7 @@ axios
     .get(apiUrl, {
         params: {
             limit: 100, // Fetch 100 cryptocurrencies at a time
-            start: 101, // Start with the 101st cryptocurrency
+            start: 501, // Start with the 101st cryptocurrency
             convert: 'USD', // Convert prices to USD, you can change it to other currencies
         },
         headers: {
