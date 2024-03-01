@@ -5,6 +5,7 @@ const axios = require('axios');
 const crypto = require('crypto');
 const fs = require('fs');
 const { coinListA, coinListB, coinListC, coinListD, coinListE, coinListF } = require('./utils/coinConfig');
+const { tierA, tierB, tierC, memeList } = require('./utils/myCoinList');
 const API_KEY = process.env.API;
 const SECRET_KEY = process.env.SECRET;
 const binanceBaseUrl = 'https://api.binance.com';
@@ -80,11 +81,15 @@ async function executeBuyOrdersWithList(coinLists, totalAmount) {
   }
 }
 
-async function main() {
+async function mainRandom() {
   await executeBuyOrdersWithList([coinListA, coinListB], 150).then(() => console.log('Orders for A and B executed.'));
   await executeBuyOrdersWithList([coinListC, coinListD], 150).then(() => console.log('Orders for C and D executed.'));
   await executeBuyOrdersWithList([coinListE, coinListF], 150).then(() => console.log('Orders for E and F executed.'));
-
 }
 
-main();
+async function mainTier() {
+  // await executeBuyOrdersWithList([tierA, tierB], 300).then(() => console.log('Orders for tier A and B executed.'));
+  await executeBuyOrdersWithList([tierC, memeList], 150).then(() => console.log('Orders for tier C and memeList executed.'));
+}
+
+mainTier();

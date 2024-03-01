@@ -4,13 +4,13 @@
 module.exports = {
     // 1 to 20
     tierA: [
-        'BTC', 'ETH', 'BNB', 'SOL',
+        'BTC', 'ETH', 'BNB', 'SOL', 'UNI'
     ],
 
     // 20 to 50
     tierB: [
         'ADA', 'AVAX', 'TRX', 'ALGO',
-        'CAKE', 'ARB', 'XLM', 'RAY', 'UNI',
+        'CAKE', 'ARB', 'XLM', 'RAY',
     ],
 
     tierC: [
