@@ -94,7 +94,7 @@ async function makeSellOrder(symbol, quoteOrderQty) {
         const response = await axios.post(url + '?' + signedQueryString, {}, {
             headers: { 'X-MBX-APIKEY': API_KEY, 'Content-Type': 'application/x-www-form-urlencoded' }
         });
-        console.log(`Sell order executed: ${JSON.stringify(response.data)}`);
+
         // Optionally log the successful sell order details to a file
         logToFile(`Sell order executed for ${symbol}: QuoteOrderQty ${adjustedQuoteOrderQty} - Response: ${JSON.stringify(response.data)}`);
     } catch (error) {
@@ -146,9 +146,9 @@ async function executeSellOrdersWithList(coinLists, totalSellValue) {
 
 async function main() {
     // Example call, adjust as needed
-    await executeSellOrdersWithList([coinListA, coinListB], 100).then(() => console.log('Sell orders for lists A and B executed.'));
-    await executeSellOrdersWithList([coinListC, coinListD], 50).then(() => console.log('Sell orders for lists C and D executed.'));
-    await executeSellOrdersWithList([coinListE, coinListF], 50).then(() => console.log('Sell orders for lists E and F executed.'));
+    // await executeSellOrdersWithList([coinListA, coinListB], 100).then(() => console.log('Sell orders for lists A and B executed.'));
+    await executeSellOrdersWithList([coinListC, coinListD], 250).then(() => console.log('Sell orders for lists C and D executed.'));
+    await executeSellOrdersWithList([coinListE, coinListF], 250).then(() => console.log('Sell orders for lists E and F executed.'));
 }
 
 main();

@@ -82,14 +82,14 @@ async function executeBuyOrdersWithList(coinLists, totalAmount) {
 }
 
 async function mainRandom() {
-  await executeBuyOrdersWithList([coinListA, coinListB], 150).then(() => console.log('Orders for A and B executed.'));
-  await executeBuyOrdersWithList([coinListC, coinListD], 150).then(() => console.log('Orders for C and D executed.'));
-  await executeBuyOrdersWithList([coinListE, coinListF], 150).then(() => console.log('Orders for E and F executed.'));
+  await executeBuyOrdersWithList([coinListA, coinListB], 500).then(() => console.log('Orders for A and B executed.'));
+  await executeBuyOrdersWithList([coinListC, coinListD], 250).then(() => console.log('Orders for C and D executed.'));
+  await executeBuyOrdersWithList([coinListE, coinListF], 100).then(() => console.log('Orders for E and F executed.'));
 }
 
-async function mainTier() {
-  // await executeBuyOrdersWithList([tierA, tierB], 300).then(() => console.log('Orders for tier A and B executed.'));
-  await executeBuyOrdersWithList([tierC, memeList], 150).then(() => console.log('Orders for tier C and memeList executed.'));
-}
+// async function mainTier() {
+//   // await executeBuyOrdersWithList([tierA, tierB], 300).then(() => console.log('Orders for tier A and B executed.'));
+//   await executeBuyOrdersWithList([tierC, memeList], 150).then(() => console.log('Orders for tier C and memeList executed.'));
+// }
 
-mainTier();
+mainRandom();
