@@ -18,8 +18,8 @@ function logToFile(message) {
   fs.appendFileSync(logFilePath, logMessage, 'utf8');
 }
 
-function roundUpToNearestTen(num) {
-  return Math.ceil(num / 10) * 10;
+function roundUpToNearestFifty(num) {
+  return Math.ceil(num / 50) * 50;
 }
 
 // Binance API Interaction Functions
@@ -64,7 +64,7 @@ async function executeBuyOrdersWithList(coinLists, totalAmount) {
   while (combinedCoins.length > 0 && remainingAmount >= 10) {
     const coinIndex = Math.floor(Math.random() * combinedCoins.length);
     const coin = combinedCoins[coinIndex];
-    let amountForCoin = roundUpToNearestTen(Math.random() * remainingAmount);
+    let amountForCoin = roundUpToNearestFifty(Math.random() * remainingAmount);
 
     if (amountForCoin > remainingAmount || combinedCoins.length === 1) {
       amountForCoin = remainingAmount;

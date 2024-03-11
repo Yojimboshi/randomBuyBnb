@@ -18,9 +18,10 @@ function logToFile(message) {
     fs.appendFileSync(logFilePath, logMessage, 'utf8');
 }
 
-function roundUpToNearestTen(num) {
-    return Math.ceil(num / 10) * 10;
+function roundUpToNearestFifty(num) {
+    return Math.ceil(num / 50) * 50;
 }
+
 
 async function getCurrentPrice(symbol) {
     const endpoint = `/api/v3/ticker/price?symbol=${symbol}USDT`; // Assuming USDT as quote asset
@@ -118,17 +119,24 @@ async function executeSellOrdersWithList(coinLists, totalSellValue) {
         let sellValue;
 
         // If asset's usdValue is less than $10, sell it all
-        if (asset.usdValue < 10) {
+        if (asset.usdValue < 50) {
             sellValue = asset.usdValue; // Sell the entire asset
         }
         else {
             const maxSellValueForAsset = Math.min(asset.usdValue, remainingSellValue);
-            sellValue = Math.max(10, Math.random() * maxSellValueForAsset).toFixed(2);
+            // Calculate a random sell value, then round up to nearest fifty
+            let randomSellValue = Math.random() * maxSellValueForAsset;
+            sellValue = roundUpToNearestFifty(randomSellValue);
+
+            // Ensure sellValue does not exceed remainingSellValue
+            if (sellValue > remainingSellValue) {
+                sellValue = roundUpToNearestFifty(remainingSellValue);
+            }
         }
 
         sellOrders.push({
             symbol: `${asset.asset}USDT`,
-            quoteOrderQty: sellValue
+            quoteOrderQty: sellValue.toFixed(2)
         });
 
         remainingSellValue -= sellValue;
@@ -147,8 +155,8 @@ async function executeSellOrdersWithList(coinLists, totalSellValue) {
 async function main() {
     // Example call, adjust as needed
     // await executeSellOrdersWithList([coinListA, coinListB], 100).then(() => console.log('Sell orders for lists A and B executed.'));
-    await executeSellOrdersWithList([coinListC, coinListD], 250).then(() => console.log('Sell orders for lists C and D executed.'));
-    await executeSellOrdersWithList([coinListE, coinListF], 250).then(() => console.log('Sell orders for lists E and F executed.'));
+    await executeSellOrdersWithList([coinListC, coinListD], 300).then(() => console.log('Sell orders for lists C and D executed.'));
+    await executeSellOrdersWithList([coinListE, coinListF], 300).then(() => console.log('Sell orders for lists E and F executed.'));
 }
 
 main();
