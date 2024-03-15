@@ -82,9 +82,10 @@ async function executeBuyOrdersWithList(coinLists, totalAmount) {
 }
 
 async function mainRandom() {
-  await executeBuyOrdersWithList([coinListA, coinListB], 500).then(() => console.log('Orders for A and B executed.'));
-  await executeBuyOrdersWithList([coinListC, coinListD], 250).then(() => console.log('Orders for C and D executed.'));
-  await executeBuyOrdersWithList([coinListE, coinListF], 100).then(() => console.log('Orders for E and F executed.'));
+  await executeBuyOrdersWithList([coinListA], 500).then(() => console.log('Orders for A executed.'));
+  await executeBuyOrdersWithList([coinListB], 400).then(() => console.log('Orders for B executed.'));
+  await executeBuyOrdersWithList([coinListC], 300).then(() => console.log('Orders for C executed.'));
+  await executeBuyOrdersWithList([coinListD], 200).then(() => console.log('Orders for D executed.'));
 }
 
 // async function mainTier() {

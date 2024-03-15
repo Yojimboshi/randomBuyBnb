@@ -6,48 +6,50 @@ module.exports = {
   coinListA: [
     'BTC', 'ETH', 'BNB',
     'SOL', 'XRP', 'ADA',
-    'AVAX', 'TRX', 'DOGE',
-    'LINK', 'DOT', 'MATIC',
-    'UNI', 'ICP', 'SHIB'
+    'DOGE', 'AVAX', 'SHIB',
+    'DOT', 'LINK', 'TRX',
+    'MATIC', 'NEAR', 'BCH',
+    'UNI', 'LTC'
   ],
 
   // 20 to 50
   coinListB: [
-    'LTC', 'IMX', 'FIL', 'ATOM',
-    'ETC', 'HBAR', 'NEAR', 'STX',
-    'APT', 'OP', 'XLM', 'VET',
-    'INJ', 'LDO', 'TIA', 'RNDR',
-    'GRT', 'ARB', 'SEI', 'SUI',
-    'MKR', 'RUNE', 'FLOW', 'ALGO',
-    'EGLD', 'AAVE', 'STRK'
+    'ICP', 'APT', 'FIL',
+    'ATOM', 'ETC', 'IMX',
+    'RNDR', 'INJ', 'STX',
+    'HBAR', 'XLM', 'OP',
+    'PEPE', 'GRT', 'VET',
+    'RUNE', 'WIF', 'THETA',
+    'LDO', 'TIA', 'MKR'
   ],
   // 50 to 100
   coinListC: [
-    'MINA', 'ORDI', 'QNT', 'THETA',
-    'SC', 'SNX', 'SAND', 'FTM',
-    'CHZ', 'WLD', 'AXS', 'XTZ',
-    'APE', 'BLUR', 'AGIX', '1000SATS',
-    'MANA', 'EOS', 'DYM', 'ASTR',
-    'NEO', 'CFX', 'FET', 'KAVA',
-    'AR', 'IOTA', 'WOO', 'GALA',
-    'PYTH', 'GNO', 'ROSE', 'KLAY',
-    'OSMO', 'CAKE'
+    'ARB', 'FLOKI', 'ALGO', 'SEI',
+    'AR', 'FTM', 'FET', 'FLOW',
+    'BONK', 'AAVE', 'GALA', 'EGLD',
+    'SUI', 'DYDX', 'STRK', 'QNT',
+    'AXS', 'CFX', 'SAND', 'ORDI',
+    'AGIX', 'SNX', 'WLD', 'MINA',
+    'XTZ', 'CHZ', 'APE', 'JUP',
+    'MANA', 'DYDX', 'EOS', '1000SATS',
+    'AXL', 'XEC', 'NEO', 'IOTA',
+    'ZRX', 'CAKE', 'DYDX', 'KAVA'
   ],
   // 100 to 200
   coinListD: [
-    'MANTA', 'BONK', 'LUNC', 'CRV', 'JUP', 'ENS',
-    'PENDLE', 'XEC', 'FXS', 'NEXO', 'JASMY', 'FTT',
-    'RPL', '1INCH', 'ALT', 'COMP', 'TWT', 'IOTX',
-    'PEPE', 'SUPER', 'ENJ', 'GMT', 'ELF', 'CKB',
-    'ZEC', 'GMX', 'SKL', 'LUNA', 'CVX', 'NTRN',
-    'MASK', 'LPT', 'CELO', 'GAS', 'OCEAN', 'HOT',
-    'PAXG', 'ZIL', 'XAI', 'PIXEL', 'KSM', 'BAT',
-    'ILV', 'SFP', 'LRC', 'SUSHI', 'GLMR', 'XEM',
-    'DASH', 'VTHO', 'QTUM', 'FLOKI', 'GLM', 'API3',
-    'MAGIC', 'CHR', 'SSV', 'TFUEL', 'RVN', 'GAL',
-    'UMA', 'STORJ', 'JST', 'ZRX', 'DCR', 'TRB',
-    'ANKR', 'FLUX', 'ID', 'KDA', 'BAND', 'T',
-    'MEME', 'AUDIO'
+    'ROSE', 'KLAY', 'GNO', 'OSMO', 'BLUR', 'LUNC',
+    'JASMY', 'WOO', 'DYM', 'CRV', 'ASTR', 'CKB',
+    'MANTA', 'ID', 'NEXO', 'FTT', 'ENJ', 'LPT',
+    'ENS', 'IOTX', 'CELO', '1INCH', 'COMP', 'HOT',
+    'LUNA', 'RPL', 'FXS', 'LRC', 'PENDLE', 'OCEAN',
+    'ZIL', 'SUPER', 'METIS', 'TWT', 'GMT', 'TFUEL',
+    'GLM', 'ALT', 'SC', 'PIXEL', 'SKL', 'MEME',
+    'ZEC', 'ANKR', 'GMX', 'QTUM', 'BAT', 'GLMR',
+    'ILV', 'GAS', 'WAVES', 'XEM', 'ELF', 'GAL',
+    'KDA', 'SSV', 'ARKM', 'SUSHI', 'DASH', 'KSM',
+    'DCR', 'BICO', 'MASK', 'ONE', 'CVX', 'AMP',
+    'FLUX', 'PAXG', 'RVN', 'PORTAL', 'VANRY', 'NTRN',
+    'RAY', 'ACH', 'DEXE', 'AUDIO', 'SFP'
   ],
   // 200 to 400
   coinListE: [

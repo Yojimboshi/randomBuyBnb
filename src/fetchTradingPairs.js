@@ -42,7 +42,7 @@ module.exports = {
 // Comment out or remove in production
 async function testFilterFunction() {
   // Mock coin lists for testing
-  const allCoinLists = [coinListE,coinListF];
+  const allCoinLists = [coinListD];
 
   // Mock structure of coinConfig object for testing
   const filteredCoinLists = await filterCoinsByAvailability(allCoinLists);
