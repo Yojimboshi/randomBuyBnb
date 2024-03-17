@@ -18,7 +18,7 @@ module.exports = {
     ],
 
     memeList: [
-        'PEPE', 'BONK', 'METIS', 'FLOKI', 'MEME', 'ORDI', 'MANTA'
+        'PEPE', 'BONK', 'METIS', 'FLOKI', 'MEME', 'ORDI', 'MANTA','WIF'
     ]
     ,
 
