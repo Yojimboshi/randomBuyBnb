@@ -14,11 +14,11 @@ module.exports = {
     ],
 
     tierC: [
-        'XRP', 'DOGE', 'MATIC', 'SHIB', 'LTC', 'APE', 'PYTH', 'NEAR', 'SEI', 'BCH', 'XAI', 'ALT'
+        'XRP', 'DOGE', 'MATIC', 'SHIB', 'LTC', 'APE', 'NEAR', 'BCH', 'DYDX'
     ],
 
     memeList: [
-        'PEPE', 'BONK', 'METIS', 'FLOKI', 'MEME', 'ORDI', 'MANTA'
+        'PEPE', 'BONK', 'METIS', 'FLOKI', 'MEME', 'ORDI', 'MANTA', 'BOME'
     ]
     ,
 
