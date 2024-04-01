@@ -4,7 +4,7 @@ require('dotenv').config({ path: '../.env' });
 const axios = require('axios');
 const crypto = require('crypto');
 const fs = require('fs');
-const { tierA, tierB, tierC, memeList } = require('./utils/myCoinList');
+const { tierA, tierB, tierC, memeList, tierD } = require('./utils/myCoinList');
 const API_KEY = process.env.API;
 const SECRET_KEY = process.env.SECRET;
 const binanceBaseUrl = 'https://api.binance.com';
@@ -201,7 +201,23 @@ async function executeLimitSellOrdersWithList(coinList, usdtAmount, premiumPerce
 
 async function mainSell() {
     // Optionally, handle memeList or any other lists
-    await executeLimitSellOrdersWithList(memeList, 100, 10)
+    await executeLimitSellOrdersWithList(tierA, 400, 3)
+        .then(() => console.log('tierA list limit sell orders executed.'))
+        .catch((error) => console.error('Error executing tierA list sell orders:', error));
+
+    await executeLimitSellOrdersWithList(tierB, 300, 3)
+        .then(() => console.log('tierB list limit sell orders executed.'))
+        .catch((error) => console.error('Error executing tierB list sell orders:', error));
+
+    await executeLimitSellOrdersWithList(tierC, 300, 3)
+        .then(() => console.log('tierC list limit sell orders executed.'))
+        .catch((error) => console.error('Error executing tierC list sell orders:', error));
+
+    await executeLimitSellOrdersWithList(tierD, 250, 4)
+        .then(() => console.log('tierD list limit sell orders executed.'))
+        .catch((error) => console.error('Error executing tierD list sell orders:', error));
+
+    await executeLimitSellOrdersWithList(memeList, 250, 5)
         .then(() => console.log('Meme list limit sell orders executed.'))
         .catch((error) => console.error('Error executing meme list sell orders:', error));
 }
