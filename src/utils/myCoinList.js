@@ -18,7 +18,7 @@ module.exports = {
     ],
 
     tierD: [
-        'XRP', 'NEAR', 'BCH'
+        'XRP', 'NEAR', 'BCH', 'ETHFI'
     ],
 
     memeList: [
