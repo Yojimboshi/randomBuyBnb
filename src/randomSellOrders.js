@@ -154,9 +154,9 @@ async function executeSellOrdersWithList(coinLists, totalSellValue) {
 
 async function main() {
     // Example call, adjust as needed
-    await executeSellOrdersWithList([coinListA, coinListB], 500).then(() => console.log('Sell orders for lists A and B executed.'));
-    await executeSellOrdersWithList([coinListC, coinListD], 300).then(() => console.log('Sell orders for lists C and D executed.'));
-    await executeSellOrdersWithList([coinListE, coinListF], 300).then(() => console.log('Sell orders for lists E and F executed.'));
+    await executeSellOrdersWithList([coinListA, coinListB], 750).then(() => console.log('Sell orders for lists A and B executed.'));
+    await executeSellOrdersWithList([coinListC, coinListD], 500).then(() => console.log('Sell orders for lists C and D executed.'));
+    await executeSellOrdersWithList([coinListE, coinListF], 500).then(() => console.log('Sell orders for lists E and F executed.'));
 }
 
 main();
