@@ -9,7 +9,8 @@ const API_KEY = process.env.API;
 const SECRET_KEY = process.env.SECRET;
 const binanceBaseUrl = 'https://api.binance.com';
 const logFilePath = '../log/limitBuyOrders.log';
-const quoteCoin = 'USDT'
+const quoteCoin = 'FDUSD'
+const fallbackQuoteCoin = 'USDT';
 
 // Utility Functions
 function logToFile(message) {
@@ -131,45 +132,58 @@ function logSuccessDetails(data) {
 async function executeLimitBuyOrdersWithList(coinList, usdtAmount, discountPercentage) {
     const filteredCoinList = coinList.filter(coin => !unwantedList.includes(coin));
     for (const coin of filteredCoinList) {
-        const currentPrice = await getCurrentPrice(coin + quoteCoin);
-        if (currentPrice) {
-            const limitPrice = currentPrice * (1 - discountPercentage / 100);
-            await makeLimitBuyOrder(coin + quoteCoin, usdtAmount, limitPrice);
-        } else {
-            console.log(`Could not fetch current price for ${coin}, skipping.`);
+        let coinPair = coin + quoteCoin;
+        let currentPrice = await getCurrentPrice(coinPair);
+        
+        if (!currentPrice) {
+            console.log(`Could not fetch current price for ${coin} with ${quoteCoin}, retrying with ${fallbackQuoteCoin}.`);
+            coinPair = coin + fallbackQuoteCoin;
+            currentPrice = await getCurrentPrice(coinPair);
+            
+            if (!currentPrice) {
+                console.log(`Could not fetch current price for ${coin} with ${fallbackQuoteCoin}, skipping.`);
+                continue;
+            }
         }
+
+        const limitPrice = currentPrice * (1 - discountPercentage / 100);
+        await makeLimitBuyOrder(coinPair, usdtAmount, limitPrice);
     }
 }
 
+
+
 async function main() {
-    // Execute limit buy orders for Tier A coins
-    await executeLimitBuyOrdersWithList(['BTC'], 750, 10)
-        .then(() => console.log('Tier A limit orders executed.'))
-        .catch((error) => console.error('Error executing Tier A orders:', error));
 
-    await executeLimitBuyOrdersWithList(['ETH'], 750, 15)
-        .then(() => console.log('Tier A limit orders executed.'))
-        .catch((error) => console.error('Error executing Tier A orders:', error));
-
-    await executeLimitBuyOrdersWithList(['BNB', 'SOL'], 500, 20)
-        .then(() => console.log('Tier A limit orders executed.'))
-        .catch((error) => console.error('Error executing Tier A orders:', error));
-
-    await executeLimitBuyOrdersWithList(tierB, 300, 25)
-        .then(() => console.log('Tier B limit orders executed.'))
-        .catch((error) => console.error('Error executing Tier B orders:', error));
-
-    await executeLimitBuyOrdersWithList(tierC, 300, 30)
-        .then(() => console.log('Tier C limit orders executed.'))
-        .catch((error) => console.error('Error executing Tier C orders:', error));
-
-    await executeLimitBuyOrdersWithList(tierD, 250, 35)
+    await executeLimitBuyOrdersWithList(tierD, 300, 20)
         .then(() => console.log('Tier D limit orders executed.'))
         .catch((error) => console.error('Error executing Tier D orders:', error));
 
-    await executeLimitBuyOrdersWithList(memeList, 250, 35)
+    await executeLimitBuyOrdersWithList(memeList, 300, 18)
         .then(() => console.log('Meme list limit orders executed.'))
         .catch((error) => console.error('Error executing Meme list orders:', error));
+
+    await executeLimitBuyOrdersWithList(tierC, 300, 18)
+        .then(() => console.log('Tier C limit orders executed.'))
+        .catch((error) => console.error('Error executing Tier C orders:', error));
+
+    await executeLimitBuyOrdersWithList(tierB, 500, 15)
+        .then(() => console.log('Tier B limit orders executed.'))
+        .catch((error) => console.error('Error executing Tier B orders:', error));
+
+    await executeLimitBuyOrdersWithList(['BNB', 'SOL'], 1000, 12)
+        .then(() => console.log('Tier A limit orders executed.'))
+        .catch((error) => console.error('Error executing Tier A orders:', error));
+
+    await executeLimitBuyOrdersWithList(['ETH'], 1000, 10)
+        .then(() => console.log('Tier A limit orders executed.'))
+        .catch((error) => console.error('Error executing Tier A orders:', error));
+
+    await executeLimitBuyOrdersWithList(['BTC'], 1000, 7)
+        .then(() => console.log('Tier A limit orders executed.'))
+        .catch((error) => console.error('Error executing Tier A orders:', error));
+
+
 }
 
 main();

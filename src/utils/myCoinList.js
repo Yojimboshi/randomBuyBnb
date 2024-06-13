@@ -13,15 +13,15 @@ module.exports = {
     ],
 
     tierC: [
-        'CAKE', 'LTC', 'DYDX', 'ETHFI', 'ENA', 'ALGO', 'RAY', 'XLM', 'ARB',
+        'CAKE', 'LTC', 'DYDX', 'ALGO', 'RAY', 'XLM', 'BCH', 'ARB',
     ],
 
     tierD: [
-        'XRP', 'NEAR', 'BCH', 'APE', 'DOGE', 'MATIC', 'SHIB',
+        'XRP', 'NEAR', 'APE', 'MATIC', 'ETHFI', 'ENA',
     ],
 
     memeList: [
-        'PEPE', 'BONK', 'METIS', 'FLOKI', 'MEME', 'ORDI', 'MANTA', 'WIF'
+        'PEPE', 'BONK', 'METIS', 'FLOKI', 'MEME', 'ORDI', 'MANTA', 'WIF', 'DOGE', 'SHIB',
     ]
     ,
 
