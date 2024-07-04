@@ -9,7 +9,7 @@ const API_KEY = process.env.API;
 const SECRET_KEY = process.env.SECRET;
 const binanceBaseUrl = 'https://api.binance.com';
 const logFilePath = '../log/limitBuyOrders.log';
-const quoteCoin = 'USDT'
+const quoteCoin = 'FDUSD'
 const fallbackQuoteCoin = 'USDT';
 
 // Utility Functions
@@ -73,7 +73,7 @@ async function makeLimitBuyOrder(symbol, usdtAmount, limitPrice) {
     const symbolInfo = await getSymbolInfo(symbol);
     if (!symbolInfo) {
         console.error(`Could not fetch symbol info for ${symbol}`);
-        return;
+        return false;
     }
 
     const tickSize = symbolInfo.filters.find(f => f.filterType === 'PRICE_FILTER').tickSize;
@@ -105,9 +105,11 @@ async function makeLimitBuyOrder(symbol, usdtAmount, limitPrice) {
         });
         console.log('Order successful:', response.data);
         logSuccessDetails(response.data);
+        return true;
     } catch (error) {
         console.error('Order failed:', error.response && error.response.data ? error.response.data : error.message);
         logToFile(`Order failed: Attempted to buy with ${usdtAmount} USDT on ${symbol} - ${error.message}`);
+        return false;
     }
 }
 
@@ -147,7 +149,21 @@ async function executeLimitBuyOrdersWithList(coinList, usdtAmount, discountPerce
         }
 
         const limitPrice = currentPrice * (1 - discountPercentage / 100);
-        await makeLimitBuyOrder(coinPair, usdtAmount, limitPrice);
+        let success = await makeLimitBuyOrder(coinPair, usdtAmount, limitPrice);
+        
+        if (!success && coinPair.endsWith(quoteCoin)) {
+            console.log(`Order failed for ${coinPair}, retrying with fallback quote coin.`);
+            coinPair = coin + fallbackQuoteCoin;
+            currentPrice = await getCurrentPrice(coinPair);
+            
+            if (!currentPrice) {
+                console.log(`Could not fetch current price for ${coin} with ${fallbackQuoteCoin}, skipping.`);
+                continue;
+            }
+
+            const limitPrice = currentPrice * (1 - discountPercentage / 100);
+            success = await makeLimitBuyOrder(coinPair, usdtAmount, limitPrice);
+        }
     }
 }
 
