@@ -9,7 +9,7 @@ const API_KEY = process.env.API;
 const SECRET_KEY = process.env.SECRET;
 const binanceBaseUrl = 'https://api.binance.com';
 const logFilePath = '../log/limitBuyOrders.log';
-const quoteCoin = 'FDUSD'
+const quoteCoin = 'USDT'
 const fallbackQuoteCoin = 'USDT';
 
 // Utility Functions
@@ -175,11 +175,11 @@ async function main() {
         .then(() => console.log('Tier A limit orders executed.'))
         .catch((error) => console.error('Error executing Tier A orders:', error));
 
-    await executeLimitBuyOrdersWithList(['ETH'], 1000, 10)
+    await executeLimitBuyOrdersWithList(['ETH'], 1000, 8)
         .then(() => console.log('Tier A limit orders executed.'))
         .catch((error) => console.error('Error executing Tier A orders:', error));
 
-    await executeLimitBuyOrdersWithList(['BTC'], 1000, 7)
+    await executeLimitBuyOrdersWithList(['BTC'], 1000, 8)
         .then(() => console.log('Tier A limit orders executed.'))
         .catch((error) => console.error('Error executing Tier A orders:', error));
 
