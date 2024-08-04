@@ -171,31 +171,31 @@ async function executeLimitBuyOrdersWithList(coinList, usdtAmount, discountPerce
 
 async function main() {
 
-    await executeLimitBuyOrdersWithList(tierD, 300, 20)
+    await executeLimitBuyOrdersWithList(tierD, 100, 16)
         .then(() => console.log('Tier D limit orders executed.'))
         .catch((error) => console.error('Error executing Tier D orders:', error));
 
-    await executeLimitBuyOrdersWithList(memeList, 300, 18)
+    await executeLimitBuyOrdersWithList(memeList, 100, 14)
         .then(() => console.log('Meme list limit orders executed.'))
         .catch((error) => console.error('Error executing Meme list orders:', error));
 
-    await executeLimitBuyOrdersWithList(tierC, 300, 18)
+    await executeLimitBuyOrdersWithList(tierC, 250, 14)
         .then(() => console.log('Tier C limit orders executed.'))
         .catch((error) => console.error('Error executing Tier C orders:', error));
 
-    await executeLimitBuyOrdersWithList(tierB, 500, 15)
+    await executeLimitBuyOrdersWithList(tierB, 300, 12)
         .then(() => console.log('Tier B limit orders executed.'))
         .catch((error) => console.error('Error executing Tier B orders:', error));
 
-    await executeLimitBuyOrdersWithList(['BNB', 'SOL'], 1000, 12)
+    await executeLimitBuyOrdersWithList(['BNB', 'SOL'], 500, 8)
         .then(() => console.log('Tier A limit orders executed.'))
         .catch((error) => console.error('Error executing Tier A orders:', error));
 
-    await executeLimitBuyOrdersWithList(['ETH'], 1000, 8)
+    await executeLimitBuyOrdersWithList(['ETH'], 500, 5)
         .then(() => console.log('Tier A limit orders executed.'))
         .catch((error) => console.error('Error executing Tier A orders:', error));
 
-    await executeLimitBuyOrdersWithList(['BTC'], 1000, 8)
+    await executeLimitBuyOrdersWithList(['BTC'], 500, 5)
         .then(() => console.log('Tier A limit orders executed.'))
         .catch((error) => console.error('Error executing Tier A orders:', error));
 
