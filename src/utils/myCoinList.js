@@ -17,11 +17,11 @@ module.exports = {
     ],
 
     tierD: [
-        'XRP', 'NEAR', 'APE', 'MATIC', 'ETHFI', 'CAKE', 'BCH', 'RDNT',
+        'XRP', 'NEAR', 'APE', 'MATIC', 'ETHFI', 'CAKE', 'BCH', 'RDNT','TON'
     ],
 
     memeList: [
-        'PEPE', 'BONK', 'FLOKI', 'ORDI', 'WIF', 'DOGE', 'SHIB',
+        'PEPE', 'BONK', 'FLOKI', 'ORDI', 'WIF', 'DOGE', 'SHIB'
     ]
     ,
 
