@@ -9,6 +9,9 @@ const API_KEY = process.env.API;
 const SECRET_KEY = process.env.SECRET;
 const binanceBaseUrl = 'https://api.binance.com';
 const logFilePath = '../log/limitSellOrders.log';
+const quoteCoin = 'FDUSD';
+const fallbackQuoteCoin = 'USDT';
+
 
 // Utility Functions
 function logToFile(message) {
@@ -106,7 +109,7 @@ async function makeLimitSellOrder(symbol, quantity, limitPrice) {
     const symbolInfo = await getSymbolInfo(symbol);
     if (!symbolInfo) {
         console.error(`Could not fetch symbol info for ${symbol}`);
-        return;
+        return false; // Explicitly return false if the symbol info cannot be fetched
     }
 
     const tickSize = symbolInfo.filters.find(f => f.filterType === 'PRICE_FILTER').tickSize;
@@ -136,9 +139,11 @@ async function makeLimitSellOrder(symbol, quantity, limitPrice) {
         });
         console.log('Sell order successful:', response.data);
         logSuccessDetails(response.data);
+        return true; // Return true if the order is successful
     } catch (error) {
         console.error('Sell order failed:', error.response && error.response.data ? error.response.data : error.message);
         logToFile(`Sell order failed: Attempted to sell ${quantity} of ${symbol} - ${error.message}`);
+        return false; // Return false if the order fails
     }
 }
 
@@ -165,11 +170,18 @@ async function executeLimitSellOrdersWithList(coinList, usdtAmount, premiumPerce
     const tradableAssets = balances.filter(balance => coinList.includes(balance.asset) && parseFloat(balance.free) > 0);
 
     for (const { asset, free } of tradableAssets) {
-        const symbol = `${asset}USDT`;
-        const currentPrice = await getCurrentPrice(symbol);
+        let symbol = `${asset}${quoteCoin}`; // Try with FDUSD first
+        let currentPrice = await getCurrentPrice(symbol);
+
         if (!currentPrice) {
-            console.log(`Could not fetch current price for ${symbol}, skipping.`);
-            continue;
+            console.log(`Could not fetch current price for ${asset} with ${quoteCoin}, retrying with ${fallbackQuoteCoin}.`);
+            symbol = `${asset}${fallbackQuoteCoin}`; // Fallback to USDT if FDUSD fails
+            currentPrice = await getCurrentPrice(symbol);
+
+            if (!currentPrice) {
+                console.log(`Could not fetch current price for ${asset} with ${fallbackQuoteCoin}, skipping.`);
+                continue;
+            }
         }
 
         const freeBalance = parseFloat(free);
@@ -194,32 +206,57 @@ async function executeLimitSellOrdersWithList(coinList, usdtAmount, premiumPerce
         const adjustedSellPrice = adjustPriceToTickSize(targetSellPrice, tickSize);
         sellQuantity = adjustQuantityToLotSize(sellQuantity, lotSize);
 
-        // Place the limit sell order
-        await makeLimitSellOrder(symbol, sellQuantity, adjustedSellPrice);
+        // Place the limit sell order for FDUSD or fallback USDT
+        let success = await makeLimitSellOrder(symbol, sellQuantity, adjustedSellPrice);
+
+        // If the order is successful, skip placing a fallback order
+        if (success) {
+            console.log(`Successfully placed sell order for ${symbol}, no need for fallback.`);
+            continue; // Skip to the next asset without placing the fallback order
+        }
+
+        // If the order fails with the primary quote coin (FDUSD), retry with fallback quote coin (USDT)
+        if (symbol.endsWith(quoteCoin)) {
+            console.log(`Order failed for ${symbol}, retrying with fallback quote coin.`);
+            symbol = `${asset}${fallbackQuoteCoin}`;
+            currentPrice = await getCurrentPrice(symbol);
+
+            if (!currentPrice) {
+                console.log(`Could not fetch current price for ${asset} with ${fallbackQuoteCoin}, skipping.`);
+                continue;
+            }
+
+            const adjustedSellPrice = adjustPriceToTickSize(currentPrice * premiumMultiplier, tickSize);
+            sellQuantity = adjustQuantityToLotSize(sellQuantity, lotSize);
+            await makeLimitSellOrder(symbol, sellQuantity, adjustedSellPrice);
+        }
     }
 }
 
+
+
 async function mainSell() {
     // Optionally, handle memeList or any other lists
-    await executeLimitSellOrdersWithList(tierA, 400, 5)
-        .then(() => console.log('tierA list limit sell orders executed.'))
-        .catch((error) => console.error('Error executing tierA list sell orders:', error));
-
-    await executeLimitSellOrdersWithList(tierB, 300, 7)
-        .then(() => console.log('tierB list limit sell orders executed.'))
-        .catch((error) => console.error('Error executing tierB list sell orders:', error));
-
-    await executeLimitSellOrdersWithList(tierC, 300, 8)
-        .then(() => console.log('tierC list limit sell orders executed.'))
-        .catch((error) => console.error('Error executing tierC list sell orders:', error));
+    await executeLimitSellOrdersWithList(memeList, 250, 8)
+        .then(() => console.log('Meme list limit sell orders executed.'))
+        .catch((error) => console.error('Error executing meme list sell orders:', error));
 
     await executeLimitSellOrdersWithList(tierD, 250, 8)
         .then(() => console.log('tierD list limit sell orders executed.'))
         .catch((error) => console.error('Error executing tierD list sell orders:', error));
 
-    await executeLimitSellOrdersWithList(memeList, 250, 8)
-        .then(() => console.log('Meme list limit sell orders executed.'))
-        .catch((error) => console.error('Error executing meme list sell orders:', error));
+    await executeLimitSellOrdersWithList(tierC, 300, 8)
+        .then(() => console.log('tierC list limit sell orders executed.'))
+        .catch((error) => console.error('Error executing tierC list sell orders:', error));
+
+    await executeLimitSellOrdersWithList(tierB, 300, 7)
+        .then(() => console.log('tierB list limit sell orders executed.'))
+        .catch((error) => console.error('Error executing tierB list sell orders:', error));
+
+    await executeLimitSellOrdersWithList(tierA, 400, 5)
+        .then(() => console.log('tierA list limit sell orders executed.'))
+        .catch((error) => console.error('Error executing tierA list sell orders:', error));
 }
+
 
 mainSell();
