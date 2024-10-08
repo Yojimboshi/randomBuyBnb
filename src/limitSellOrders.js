@@ -201,23 +201,23 @@ async function executeLimitSellOrdersWithList(coinList, usdtAmount, premiumPerce
 
 async function mainSell() {
     // Optionally, handle memeList or any other lists
-    await executeLimitSellOrdersWithList(tierA, 400, 3)
+    await executeLimitSellOrdersWithList(tierA, 400, 5)
         .then(() => console.log('tierA list limit sell orders executed.'))
         .catch((error) => console.error('Error executing tierA list sell orders:', error));
 
-    await executeLimitSellOrdersWithList(tierB, 300, 3)
+    await executeLimitSellOrdersWithList(tierB, 300, 7)
         .then(() => console.log('tierB list limit sell orders executed.'))
         .catch((error) => console.error('Error executing tierB list sell orders:', error));
 
-    await executeLimitSellOrdersWithList(tierC, 300, 3)
+    await executeLimitSellOrdersWithList(tierC, 300, 8)
         .then(() => console.log('tierC list limit sell orders executed.'))
         .catch((error) => console.error('Error executing tierC list sell orders:', error));
 
-    await executeLimitSellOrdersWithList(tierD, 250, 4)
+    await executeLimitSellOrdersWithList(tierD, 250, 8)
         .then(() => console.log('tierD list limit sell orders executed.'))
         .catch((error) => console.error('Error executing tierD list sell orders:', error));
 
-    await executeLimitSellOrdersWithList(memeList, 250, 5)
+    await executeLimitSellOrdersWithList(memeList, 250, 8)
         .then(() => console.log('Meme list limit sell orders executed.'))
         .catch((error) => console.error('Error executing meme list sell orders:', error));
 }
