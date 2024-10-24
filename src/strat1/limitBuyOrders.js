@@ -4,7 +4,7 @@ require('dotenv').config({ path: '../.env' });
 const axios = require('axios');
 const crypto = require('crypto');
 const fs = require('fs');
-const { tierA, tierB, tierC, tierD, memeList, unwantedList } = require('./utils/myCoinList');
+const { tierA, tierB, tierC, tierD, memeList, unwantedList } = require('../utils/myCoinList');
 const API_KEY = process.env.API;
 const SECRET_KEY = process.env.SECRET;
 const binanceBaseUrl = 'https://api.binance.com';
